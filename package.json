@@ -8,7 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "dev": "ts-node-dev --respawn"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
@@ -44,6 +45,7 @@
     "eslint": "^9.25.0",
     "eslint-config-expo": "~9.2.0",
     "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   },
   "private": true,
