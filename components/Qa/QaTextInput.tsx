@@ -1,4 +1,5 @@
-import { TextInput } from "react-native";
+import { StyleSheet, TextInput } from "react-native";
+
 
 type QaTextInputProps = {
   value: string;
@@ -11,7 +12,19 @@ export const QaTextInput: React.FC<QaTextInputProps> = ({
   onChangeText,
   placeholder,
 }) => {
-  const textAreaStyle = {
+  return (
+    <TextInput
+      value={value}
+      onChangeText={onChangeText}
+      placeholder={placeholder}
+      style={styles.textAreaStyle}
+      multiline
+    />
+  );
+};
+
+const styles = StyleSheet.create({
+  textAreaStyle: {
     flex: 1,
     minHeight: 100,
     padding: 12,
@@ -20,15 +33,5 @@ export const QaTextInput: React.FC<QaTextInputProps> = ({
     borderRadius: 8,
     fontSize: 16,
     marginBottom: 20,
-  };
-
-  return (
-    <TextInput
-      value={value}
-      onChangeText={onChangeText}
-      placeholder={placeholder}
-      style={textAreaStyle}
-      multiline
-    />
-  );
-};
+  }
+});
