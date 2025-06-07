@@ -1,14 +1,20 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
-export default function RegisterdQa () {
+type Props = {
+  registeredQuestions: string;
+  setRegisteredQuestions: React.Dispatch<React.SetStateAction<string>>;
+}
+export default function RegisterdQa ({registeredQuestions, setRegisteredQuestions}: Props) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>登録済みの問題</Text>
       <TextInput
-        style={styles.textArea}
+        value={registeredQuestions}
+        onChangeText={setRegisteredQuestions}
         placeholder="登録された問題がここに表示されます"
+        style={styles.textAreaStyle}
         multiline
-        editable={false}
+        editable={true}
       />
     </View>
   );
@@ -35,13 +41,14 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     color: '#2C3E50',
   },
-  textArea: {
-    minHeight: 150,
-    borderWidth: 2,
-    borderColor: '#E1E8ED',
-    borderRadius: 8,
+  textAreaStyle: {
+    flex: 1,
+    minHeight: 100,
     padding: 12,
+    borderWidth: 2,
+    borderColor: "blue",
+    borderRadius: 8,
     fontSize: 16,
-    backgroundColor: '#F5F7FA',
-  },
+    marginBottom: 20,
+  }
 });
