@@ -1,5 +1,5 @@
 
-import { Main } from '@/components/Main';
+import { MainView } from '@/components/MainView';
 import { StrictMode } from 'react';
 import Animated from 'react-native-reanimated';
 export default function Index() {
@@ -9,7 +9,7 @@ export default function Index() {
     <StrictMode>
       <AnimatedScrollView>
         <AnimatedView>
-          <Main />
+          <MainView />
         </AnimatedView>
       </AnimatedScrollView>
     </StrictMode>
