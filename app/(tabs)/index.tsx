@@ -14,18 +14,17 @@ export default function Index() {
 
   return (
     <StrictMode>
-      <AnimatedScrollView>
-        <AnimatedView>
+      <AnimatedScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <AnimatedView style={{ flex: 1 }}>
           {isTestMode
-          ? <TestView
-          qaList={qaList}
-          setIsTestMode={setIsTestMode}/>
-          : <MainView
-          registeredQuestions={registeredQuestions}
-          setRegisteredQuestions={setRegisteredQuestions}
-          setIsTestMode={setIsTestMode}
-          setQaList={setQaList}
-          />}
+            ? <TestView qaList={qaList} setIsTestMode={setIsTestMode} />
+            : <MainView
+                registeredQuestions={registeredQuestions}
+                setRegisteredQuestions={setRegisteredQuestions}
+                setIsTestMode={setIsTestMode}
+                setQaList={setQaList}
+              />
+          }
         </AnimatedView>
       </AnimatedScrollView>
     </StrictMode>

@@ -13,7 +13,6 @@ export default function RandomTestBtn ({registeredQuestions, setQaList, setIsTes
     const newQaList = parseRegisteredQuestionsRandom(registeredQuestions);
     setQaList(newQaList);
     setIsTestMode(true);
-    console.log(newQaList);
   }
 
   return (

@@ -44,53 +44,83 @@ export default function TestView ({
   }
 
   return (
-    <View>
-      <View>
+    <View style={styles.container}>
+      <View style={styles.cardContainer}>
         {!isCompleted ? (
           <View>
-            <Text>{currentQuestion + 1}/{totalQuestions}</Text>
-            <Text>{question()}</Text>
-            {showAnswer && <Text>{answer()}</Text>}
-            {showAnswer ? (
-              <TouchableOpacity onPress={() => setShowAnswer(false)}><Text>解答を非表示</Text></TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => setShowAnswer(true)}><Text>解答を表示</Text></TouchableOpacity>
-            )}
+            <View style={styles.cardHeader}>
+              <Text style={styles.questionCounter}>{currentQuestion + 1}/{totalQuestions}</Text>
+            </View>
+            <View style={styles.cardContent}>
+              <View style={styles.questionText}>
+                <Text style={styles.questionTextContent}>{question()}</Text>
+              </View>
+              {showAnswer && (
+                <View style={styles.answerText}>
+                  <Text style={styles.answerTextContent}>{answer()}</Text>
+                </View>
+              )}
+            </View>
           </View>
         ) : (
-          <View>全ての問題が終了しました。</View>
+          <View style={styles.completedContainer}>
+            <Text style={styles.completedText}>全ての問題が終了しました。</Text>
+          </View>
         )}
       </View>
-      <View>
-        <View>
-          <TouchableOpacity onPress={handlePrevious}>
-            <Text>前へ</Text>
-          </TouchableOpacity>
-          {!isCompleted && 
-            <TouchableOpacity onPress={handleNext}>
-              <Text>次へ</Text>
+      <View style={styles.controlSection}>
+        <View style={styles.navigationButtons}>
+          {currentQuestion > 0 && (
+            <TouchableOpacity 
+              style={[styles.button, styles.secondaryButton]} 
+              onPress={handlePrevious}
+            >
+              <Text style={styles.buttonText}>前へ</Text>
             </TouchableOpacity>
-          }
-          <TouchableOpacity onPress={handleReturnToMain}>
-            <Text>戻る</Text>
-          </TouchableOpacity>
+          )}
+          {!isCompleted && currentQuestion < totalQuestions && (
+            <TouchableOpacity 
+              style={[styles.button, styles.secondaryButton]} 
+              onPress={handleNext}
+            >
+              <Text style={styles.buttonText}>次へ</Text>
+            </TouchableOpacity>
+          )}
         </View>
+        <View>
+          {!isCompleted && (
+            <TouchableOpacity
+              style={[styles.button, styles.successButton]}
+              onPress={() => setShowAnswer(prev => !prev)}
+            >
+              <Text style={styles.buttonText}>
+                {showAnswer ? '解答を非表示' : '解答を表示'}
+              </Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      </View>
+      <View style={styles.fixedButtonContainer}>
+        <TouchableOpacity
+          style={styles.fixedButton}
+          onPress={handleReturnToMain}
+        >
+          <Text style={styles.buttonText}>テスト終了</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    color: '#2C3E50',
-  },
-
   container: {
+    flex: 1,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: '#F8F9FA',
+    position: 'relative',
+  },
+  cardContainer: {
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     marginBottom: 20,
     shadowColor: '#000',
@@ -102,15 +132,90 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
-  registerButton: {
+  cardHeader: {
     backgroundColor: '#4A90E2',
+    padding: 15,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+  },
+  questionCounter: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  cardContent: {
+    padding: 20,
+  },
+  questionText: {
+    backgroundColor: '#F5F7FA',
+    padding: 15,
+    borderRadius: 8,
+    borderLeftWidth: 4,
+    borderLeftColor: '#4A90E2',
+    marginBottom: 20,
+  },
+  questionTextContent: {
+    fontSize: 16,
+    color: '#2C3E50',
+  },
+  answerText: {
+    backgroundColor: '#F5F7FA',
+    padding: 15,
+    borderRadius: 8,
+    marginTop: 20,
+  },
+  answerTextContent: {
+    fontSize: 16,
+    color: '#2C3E50',
+  },
+  completedContainer: {
+    padding: 20,
+    alignItems: 'center',
+  },
+  completedText: {
+    fontSize: 18,
+    color: '#2C3E50',
+    fontWeight: 'bold',
+  },
+  controlSection: {
+    gap: 10,
+  },
+  navigationButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+  button: {
     padding: 12,
     borderRadius: 8,
     alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
-
-  registerButtonText: {
-    color: '#fff',
+  fixedButtonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 16,
+    backgroundColor: '#FFFFFF',
+    borderTopWidth: 1,
+    borderTopColor: '#E1E8ED',
+  },
+  fixedButton: {
+    backgroundColor: '#AAA',
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  secondaryButton: {
+    backgroundColor: '#4A90E2',
+  },
+  successButton: {
+    backgroundColor: '#2ECC71',
+  },
+  buttonText: {
+    color: '#FFFFFF',
     fontSize: 16,
     fontWeight: 'bold',
   },

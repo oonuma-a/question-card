@@ -69,14 +69,16 @@ export default function ({
         setInputAnswerText={setInputAnswerText}
         />
       </View>
-      <TouchableOpacity
-      style={styles.registerButton}
-      onPress={onClickRegisterBtn}>
-        <Text
-        style={styles.registerButtonText}>
-          登録する
+      <View style={styles.container}>
+        <TouchableOpacity
+        style={styles.registerButton}
+        onPress={onClickRegisterBtn}>
+          <Text
+          style={styles.registerButtonText}>
+            登録する
         </Text>
       </TouchableOpacity>
+      </View>
       <RegisterdQa 
       registeredQuestions={registeredQuestions}
       setRegisteredQuestions={setRegisteredQuestions}
