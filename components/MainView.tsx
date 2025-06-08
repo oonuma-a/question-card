@@ -1,22 +1,29 @@
 import HowTo from '@/app/HowTo';
-import QuestionSettings from '@/app/QuestionSettings';
 import RegisterAnswer from '@/app/RegisterAnswer';
 import RegisterdQa from '@/app/RegisterdQa';
 import RegisterQuestion from '@/app/RegisterQuestion';
+import { QA } from '@/app/types';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import OrderTestBtn from './OrderTestBtn';
+import RandomTestBtn from './RandomTestBtn';
 
 
-export const MainView: React.FC = () => {
-  type QA = {
-    id: number;
-    question: string;
-    answer: string;
-  };
-
+type Props = {
+    registeredQuestions: string;
+    setRegisteredQuestions: React.Dispatch<React.SetStateAction<string>>;
+    setIsTestMode: React.Dispatch<React.SetStateAction<boolean>>;
+    setQaList: React.Dispatch<React.SetStateAction<QA[]>>;
+}
+export default function ({
+  registeredQuestions, 
+  setRegisteredQuestions,
+  setIsTestMode,
+  setQaList
+}: Props
+) {
   const [inputQuestionText, setInputQuestionText] = useState<string>("");
   const [inputAnswerText, setInputAnswerText] = useState<string>("");
-  const [registeredQuestions, setRegisteredQuestions] = useState<string>('');
 
   const qaCount = ():number => {
     if (registeredQuestions === "") return 0;
@@ -41,7 +48,7 @@ export const MainView: React.FC = () => {
     // RegisterdQaへテキストを整形して登録
     const newQuestion = `${Question}\n---\n${Answer}`;
     setRegisteredQuestions(prev => 
-      prev ? `${prev}\n+++\n${newQuestion}\n` : newQuestion
+      prev ? `${prev}\n+++\n${newQuestion}` : newQuestion
     );
 
     setInputQuestionText('');
@@ -74,7 +81,21 @@ export const MainView: React.FC = () => {
       registeredQuestions={registeredQuestions}
       setRegisteredQuestions={setRegisteredQuestions}
       />
-      <QuestionSettings />
+
+      <View style={styles.container}>
+        <View style={styles.buttonGroup}>
+          <OrderTestBtn
+          registeredQuestions={registeredQuestions}
+          setQaList={setQaList}
+          setIsTestMode={setIsTestMode}
+          />
+          <RandomTestBtn
+          registeredQuestions={registeredQuestions}
+          setQaList={setQaList}
+          setIsTestMode={setIsTestMode}
+          />
+        </View>
+      </View>
       <HowTo />
     </View>
   );
@@ -113,5 +134,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  buttonGroup: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 12,
   },
 });
