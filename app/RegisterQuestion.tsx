@@ -1,4 +1,5 @@
-import { StyleSheet, TextInput, View } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 
 type Props = {
   inputQuestionText: string;
@@ -12,16 +13,27 @@ export default function RegisterQuestion ({ inputQuestionText, setInputQuestionT
   //   setInputQuestionText(newInputQuestionText);
   // }
 
+  const handleClear = () => {
+    setInputQuestionText('');
+  };
+
   return (
     <View style={styles.inputGroup}>
-      <TextInput
-        value={inputQuestionText}
-        onChangeText={setInputQuestionText}
-        placeholder="問題文を入力してください"
-        style={styles.textAreaStyle}
-        multiline
-        editable={true}
-      />
+      <View style={styles.inputContainer}>
+        <TextInput
+          value={inputQuestionText}
+          onChangeText={setInputQuestionText}
+          placeholder="問題文を入力してください"
+          style={styles.textAreaStyle}
+          multiline
+          editable={true}
+        />
+        {inputQuestionText.length > 0 && (
+          <TouchableOpacity style={styles.clearButton} onPress={handleClear}>
+            <Ionicons name="close-circle" size={24} color="#95A5A6" />
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 }
@@ -29,6 +41,9 @@ export default function RegisterQuestion ({ inputQuestionText, setInputQuestionT
 const styles = StyleSheet.create({
   inputGroup: {
     marginBottom: 16,
+  },
+  inputContainer: {
+    position: 'relative',
   },
   textAreaStyle: {
     flex: 1,
@@ -39,5 +54,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     fontSize: 16,
     marginBottom: 20,
+  },
+  clearButton: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    padding: 4,
   }
 });

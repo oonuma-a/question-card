@@ -10,6 +10,7 @@ type Props = {
 
 export default function RandomTestBtn ({registeredQuestions, setQaList, setIsTestMode}: Props) {
   const handleRandomMode = () => {
+    if (!registeredQuestions) return;
     const newQaList = parseRegisteredQuestionsRandom(registeredQuestions);
     setQaList(newQaList);
     setIsTestMode(true);
@@ -51,7 +52,7 @@ function parseRegisteredQuestionsRandom(data: string): QA[] {
 const styles = StyleSheet.create({
   button: {
     flex: 1,
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#6AE025',
     padding: 12,
     borderRadius: 8,
     alignItems: 'center',

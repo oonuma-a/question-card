@@ -10,6 +10,7 @@ type Props = {
 
 export default function OrderTestBtn ({registeredQuestions, setQaList, setIsTestMode}: Props) {
   const handleOrderMode = () => {
+    if (!registeredQuestions) return;
     const newQaList = parseRegisteredQuestionsOrder(registeredQuestions);
     setQaList(newQaList);
     setIsTestMode(true);
@@ -45,7 +46,7 @@ function parseRegisteredQuestionsOrder(data: string): QA[] {
 const styles = StyleSheet.create({
   button: {
     flex: 1,
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#6AE025',
     padding: 12,
     borderRadius: 8,
     alignItems: 'center',
